@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `user` ADD `mdp` VARCHAR( 200 ) NOT NULL AFTER `estAdmin` ;
+ALTER TABLE `user` ADD `poids` FLOAT NOT NULL AFTER `taille`;
 
 --
 -- Structure de la table `code_credit`
@@ -86,6 +87,10 @@ CREATE TABLE IF NOT EXISTS `regime` (
   PRIMARY KEY (`id_regime`),
   KEY `id_objectif` (`id_objectif`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `regime` ADD `poids_min` FLOAT NOT NULL AFTER `taille_max` ,
+ADD `poids_max` FLOAT NOT NULL AFTER `poids_min` ;
+ALTER TABLE `regime` ADD `duree_jour` INT NOT NULL AFTER `id_objectif` ;
 
 -- --------------------------------------------------------
 

@@ -51,4 +51,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Crud_controller';
 $route['404_override'] = '';
+$route['/'] = 'Crud_controller/index';
+$route['insert_user'] = 'Crud_controller/insert_user';
 $route['translate_uri_dashes'] = FALSE;

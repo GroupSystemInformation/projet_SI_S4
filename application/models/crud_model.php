@@ -12,6 +12,14 @@ class Crud_model extends CI_Model {
             $query = $this->db->get('utilisateur');
             return $query->num_rows() > 0;
         }
+
+        public function get_user_by_mail_and_password($mail, $password){
+            $query = $this->db->get_where('user', array('mail' => $mail, 'mdp' => $password));
+            if ($query->num_rows() > 0){
+                return $query->row();
+            }
+            return null;
+        }
         
         public function insert($table,$data)
         {
