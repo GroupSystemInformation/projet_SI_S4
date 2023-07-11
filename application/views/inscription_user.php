@@ -35,7 +35,7 @@
       <div class="container-fluid">
          <div class="header_section">
             <div class="container">
-               <nav class="navbar navbar-light bg-light justify-content-between">
+               <nav class="navbar navbar-light justify-content-between">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                      <a href="index.html">Home</a>
@@ -116,6 +116,10 @@
                              <option value="masculin">Masculin</option>
                              <option value="féminin">Féminin</option>
                            </select>
+                         </div>
+                         <div class="form-group col-lg-4">
+                           <label for="age">Votre age</label>
+                           <input type="text" class="form-control" id="age" name="age" placeholder="">
                          </div>
                          <div class="form-group col-lg-4">
                            <label for="taille">Taille(m)</label>

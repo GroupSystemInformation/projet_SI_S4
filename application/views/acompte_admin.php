@@ -53,7 +53,7 @@
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                      <a href="index.html">Home</a>
                      <a href="service.html">Dashboard</a>
-                     <a href="about.html">regime</a>
+                     <a href="about.html">gerer regime</a>
                      <a href="blog.html">code money</a>
                      <a href="contacts.html">Contacts</a>
                   </div>
@@ -118,7 +118,7 @@
                          <div class="form-group col-lg-4">
                            <label for="mdp">Mot de pass</label>
                            <input type="password" class="form-control" id="mpd" placeholder="XXXXXXXXXX">
-                         </div>
+                         </div> 
                        </div>
                        <div>
                         <h4><a href="<?php echo base_url('crud_controller/lien_inscription'); ?>">Inscription </a></h4>

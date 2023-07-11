@@ -6,6 +6,7 @@ class Crud_controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        date_default_timezone_set('Africa/Nairobi');
         $this->load->model('crud_model');
         $this->load->library('form_validation');
         $this->load->helper('url');
@@ -13,14 +14,17 @@ class Crud_controller extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('page_user');
+       // $this->load->view('admin_param');
+       $this->load->view('login_user');
     }
 
     public function lien_inscription()
     {
+
         $objectif = $this->crud_model->get_all_data("objectif");
         $data['objectif'] = $objectif;
         $this->load->view("inscription_user",$data);
+
     }
 
 
@@ -31,7 +35,32 @@ class Crud_controller extends CI_Controller {
 
     public function lien_admin()
     {
-        $this->load->view("acompte_admin");
+        if ($this->session->userdata('user_id')){
+            $user_id = $this->session->userdata('user_id');
+            $user = $this->crud_model->getById("user",$user_id,"id_user");
+            $objectif = $this->crud_model->get_all_data("objectif");
+            $regime = $this->crud_model->get_all_data("regime");
+            $data['user'] = $user;
+            $data['objectif'] = $objectif;
+            $data['regime'] = $regime;
+
+            $this->load->view("admin_param",$data);
+        }
+    }
+    
+
+    public function lien_regime_user()
+    {
+        $regime = $this->get_proposition_regime();
+        $repas = $this->get_repas();
+        $sport = $this->get_sport();
+        
+
+        $data['regime'] = $regime;
+        $data['repas'] = $repas;
+        $data['sport'] = $sport;
+        
+        $this->load->view("regime_parfait",$data);
     }
 
 
@@ -55,6 +84,7 @@ class Crud_controller extends CI_Controller {
                 'mail' => $this->input->post('mail'),
                 'genre' => $this->input->post('genre'),
                 'taille' => floatval($this->input->post('taille')),
+                'age'=> intval($this->input->post('age')),
                 'poids' => floatval($this->input->post('taille')),
                 'idObjectif' =>  intval($this->input->post('objectif')),
                 'mdp' => $this->input->post('mdp')
@@ -97,16 +127,25 @@ class Crud_controller extends CI_Controller {
 
     public function get_proposition_regime()
     {
-        $id_user =  $this->session->userdata('user_id');
-        $user = $this->crud_model->getById("user",$id_user,"id_user");
-        $user_regime = $this->db->select("*");
-        $this->db->from("regime r");
-        $this->db->where("r.idObjectif",$user->idObjectif);
-        $this->db->where("r.age_min <=", $user->age);
-        $this->db->where("r.age_max >=",$user->age);
-        $this->db->where("r.genre",$user->genre);
-        $query = $this->db->get();
-        return $query->result();
+
+        if ($this->session->userdata('user_id')){
+            $id_user =  $this->session->userdata('user_id');
+            $user = $this->crud_model->getById("user",$id_user,"id_user");
+            $user_regime = $this->db->select("*");
+            $this->db->from("regime");
+            $this->db->where("id_objectif",$user[0]->idObjectif);
+            $this->db->where("genre",$user[0]->genre);
+            $this->db->where("age_min <=", $user[0]->age);
+            $this->db->where("age_max >=", $user[0]->age);
+            $this->db->where("taille_min <=", $user[0]->taille);
+            $this->db->where("taille_max >=", $user[0]->taille);
+            $this->db->where("poids_min <=", $user[0]->poids);
+            $this->db->where("poids_max >=", $user[0]->poids);
+            $query = $this->db->get();
+            return $query->result();
+
+        }
+
     }
 
     public function get_repas()
@@ -142,6 +181,43 @@ class Crud_controller extends CI_Controller {
         }
 
         return $sport;
+    }
+
+    public function enter_code_money()
+    {
+        $code_money = $this->input->post('code_money');
+        $verif_money = $this->crud_model->getById("code_credit",$code_money,"numero");
+        if (!empty($verif_money) && $verif_money[0]->estValide == 0) {
+            if ($this->session->userdata('user_id')){
+                $user_id = $this->session->userdata('user_id');
+                $data = array(
+                    'estValide' => 1,
+                    'id_user' => $user_id,
+                    'date_usage' => date('Y-m-d H:i:s')
+                );
+
+                $user = $this->crud_model->getById("user",$user_id,"id_user");
+
+                $new_money = $verif_money[0]->valeur_credit+$user[0]->argent;
+
+                $data_user = array(
+                    'argent' => $new_money
+                );
+
+                $this->crud_model->update('code_credit', $verif_money[0]->id_code, 'id_code', $data);
+
+                $this->crud_model->update('user', $user[0]->id_user, 'id_user', $data_user);
+
+                $data_user_alefa['user'] = $user[0];
+
+                $this->load->view('page_user',$data_user_alefa);
+                
+            }
+        }else {
+            $data_error['error'] = "Code invalide ou déjà utilisé.";
+            $this->load->view('validation_error', $data_error);
+        }
+        
     }
 
         

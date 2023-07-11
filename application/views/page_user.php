@@ -77,11 +77,11 @@
                            <li><a href="blog.html">Blog</a></li>
                            <li><a href="shop.html">Shop</a></li>
                            <?php if ($user->estAdmin == 1): ?>
-                              <li><a href="<?php echo base_url('Crud_controller/lien_admin'); ?>">Page admin</a></li>
+                              <li><a href="<?php echo base_url('Crud_controller/lien_admin'); ?>">Admin</a></li>
                            <?php endif; ?>
 
                            <?php if ($user->estAdmin == 0): ?>
-                              <li><a href="<?php echo base_url('Crud_controller/get_proposition_regime'); ?>">Regime</a></li>
+                              <li><a href="<?php echo base_url('Crud_controller/lien_regime_user'); ?>">Regime</a></li>
                            <?php endif; ?>
                         </ul>
                      </div>
@@ -103,7 +103,7 @@
                                  <!-- <h1 class="banner_text">YOUR CITY</h1> -->
                                  <div class="banner_main">
                                     <div class="dropdown">
-                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
+                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Insérer un code money
                                        </button>
                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                           <a class="dropdown-item" href="#">Action</a>
@@ -113,14 +113,16 @@
                                     </div>
                                     <div class="main">
                                        <!-- Another variation with a button -->
-                                       <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="Search">
-                                          <div class="input-group-append">
-                                             <button class="btn btn-secondary" type="button" style="background-color: #ffffff; border-color:#ffffff ">
-                                             <i class="fa fa-search" style="color: #191919;"></i>
-                                             </button>
+                                       <form action="<?php echo base_url('Crud_controller/enter_code_money'); ?>" method="post">
+                                          <div class="input-group">
+                                             <input type="text" name="code_money" class="form-control" placeholder="code credit">
+                                             <div class="input-group-append">
+                                                <button class="btn btn-secondary" type="submit" style=" border-color:#ffffff ">
+                                                <i class="fas fa-check" style="color: #191919;"></i>
+                                                </button>
+                                             </div>
                                           </div>
-                                       </div>
+                                       </form>
                                     </div>
                                  </div>
                                  <!-- <div class="ordernow_bt"><a href="#">Commandez maintenant</a></div> -->
@@ -169,7 +171,7 @@
                                  <!-- <h1 class="banner_text">YOUR CITY</h1> -->
                                  <div class="banner_main">
                                     <div class="dropdown">
-                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
+                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Inserer code 
                                        </button>
                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                           <a class="dropdown-item" href="#">Action</a>

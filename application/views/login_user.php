@@ -49,7 +49,7 @@
       <div class="container-fluid">
          <div class="header_section">
             <div class="container">
-               <nav class="navbar navbar-light bg-light justify-content-between">
+               <nav class="navbar navbar-light justify-content-between">
                   <div id="mySidenav" class="sidenav">
                      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                      <a href="index.html">Home</a>
@@ -106,7 +106,7 @@
                  <div class="row">
                    <div class="col">
                      <form id="user_login_form" method="post" action="<?php echo base_url('crud_controller/user_login'); ?>">
-                        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-widh: 600px;">
+                        <div class="border-start border-5 ps-5 mb-5" style="max-widh: 600px;">
                        <h1>
                          <span>CONNECTER VOUS</span>
                          

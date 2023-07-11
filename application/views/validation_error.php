@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>validation error</h1>
+    <h1><?php echo $error; ?></h1>
 </body>
 </html>
